@@ -39,7 +39,7 @@ if(isset($_POST['Ajouter'])) {
 
   if($result){
     echo "<script type=\"text/javascript\"> alert('Livre enregistrer '); 
-    window.location.href = \"http://localhost/library_management/gestionLivres.php\";
+    window.location.href = \"http://localhost/ADMIN_DASHBOARD_PANEL/gestionLivres.php\";
            </script>";
   }else {
     echo "<script type=\"text/javascript\"> alert('Erreur : ".mysql_error()."')</script>";

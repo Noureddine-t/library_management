@@ -31,6 +31,6 @@ CREATE TABLE bibliotheque.emprunts (
   date_retour DATE,
   en_cours BOOLEAN DEFAULT 0,
   PRIMARY KEY (  id ),
-  FOREIGN KEY (id_personne) REFERENCES usagers(id_personne)
+  FOREIGN KEY (id_personne) REFERENCES usagers(id_personne),
 FOREIGN KEY (id_livre) REFERENCES livres(id_livre)
 );

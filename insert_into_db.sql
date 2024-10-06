@@ -1,13 +1,13 @@
 -- Insertion de données dans la table "livres"
 INSERT INTO bibliotheque.livres (titre, auteurs, maison_d_edition, nombre_de_pages, nombre_de_copies)
 VALUES
-  ('Harry Potter à l\'école des sorciers', 'J.K. Rowling', 'Gallimard', 384, 10),
+  ('Harry Potter à l''école des sorciers', 'J.K. Rowling', 'Gallimard', 384, 10),
   ('Le Seigneur des Anneaux', 'J.R.R. Tolkien', 'Christian Bourgois Éditeur', 1136, 8),
   ('Les Misérables', 'Victor Hugo', 'A. Lacroix, Verboeckhoven et Cie', 1488, 12),
   ('1984', 'George Orwell', 'Secker and Warburg', 328, 6),
   ('Le Petit Prince', 'Antoine de Saint-Exupéry', 'Gallimard', 96, 15),
   ('La Peste', 'Albert Camus', 'Gallimard', 278, 4),
-  ('L\'Odyssée', 'Homère', 'Belles Lettres', 416, 7),
+  ('L''Odyssée', 'Homère', 'Belles Lettres', 416, 7),
   ('Les Fourmis', 'Bernard Werber', 'Albin Michel', 444, 11),
   ('La Nuit des temps', 'René Barjavel', 'Denoël', 374, 9),
   ('La Guerre et la Paix', 'Léon Tolstoï', 'Livre de Poche', 1392, 10),
