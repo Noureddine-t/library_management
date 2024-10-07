@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
    
-    <?php include 'connect.php' ;?>
+    <?php include 'connect.php'; ?>
   
     <style><?php include 'style.css'; ?></style>
     <title>Ajouter un usager</title>
@@ -13,46 +13,52 @@
 <body>
 <section class="section_form">
   <form id="consultation-form" class="feed-form" method="POST">
-    <input name="nom" placeholder="Nom" type="text">
-    <input name="prenom" placeholder="Prenom" type="text">
-    <input name="adresse" placeholder="Adresse" type="text">
-    <input name="email" placeholder="email" type="text">
-    <div >
+    <input name="nom" placeholder="Nom" type="text" required>
+    <input name="prenom" placeholder="Prénom" type="text" required>
+    <input name="adresse" placeholder="Adresse" type="text" required>
+    <input name="email" placeholder="Email" type="email" required>
+    <div>
         <div>
-            <label><input type="radio" name="statut" checked="" value="Etudiant">
-            <span>Etudiant</span>
+            <label><input type="radio" name="statut" value="Etudiant" checked>
+            <span>Étudiant</span>
             </label>
             <label><input type="radio" name="statut" value="Enseignant">
             <span>Enseignant</span>
             </label>
         </div>
     </div>
-    <button type="submit" name="Ajouter" >Ajouter</button>
+    <button type="submit" name="Ajouter">Ajouter</button>
   </form>
 </section>
 </body>
 </html>
 
-
 <?php 
 if(isset($_POST['Ajouter'])) {
-  $Nom = $_POST['nom'] ;
-  $Prenom = $_POST['prenom'] ;
-  $Adresse = $_POST['adresse'] ;
-  $Statut = $_POST['statut'] ;
-  $Email = $_POST['email'] ;
+    // Sécuriser les données utilisateur
+    $Nom = mysqli_real_escape_string($idcon, $_POST['nom']);
+    $Prenom = mysqli_real_escape_string($idcon, $_POST['prenom']);
+    $Adresse = mysqli_real_escape_string($idcon, $_POST['adresse']);
+    $Statut = mysqli_real_escape_string($idcon, $_POST['statut']);
+    $Email = mysqli_real_escape_string($idcon, $_POST['email']);
 
-  $insertSQL = "INSERT INTO `usagers`( `nom`, `prenom`, `addresse`, `statut`, `email`) 
-                VALUES ('$Nom','$Prenom','$Adresse','$Statut','$Email')" ;
-  $result=@mysql_query($insertSQL,$idcon);
-
-  if($result){
-    echo "<script type=\"text/javascript\"> alert('usager enregistrer avec succces'); 
-    window.location.href = \"http://localhost/ADMIN_DASHBOARD_PANEL/gestionUsagers.php\";
-           </script>";
-  }else {
-    echo "<script type=\"text/javascript\"> alert('Erreur : ".mysql_error()."')</script>";
-  }
+    // Requête d'insertion
+    $insertSQL = "INSERT INTO `usagers` (`nom`, `prenom`, `addresse`, `statut`, `email`) 
+                  VALUES ('$Nom', '$Prenom', '$Adresse', '$Statut', '$Email')";
+    
+    // Exécuter la requête
+    if (mysqli_query($idcon, $insertSQL)) {
+        echo "<script type=\"text/javascript\"> 
+                alert('Usager enregistré avec succès'); 
+                window.location.href = 'gestionUsagers.php';
+              </script>";
+    } else {
+        echo "<script type=\"text/javascript\"> 
+                alert('Erreur : " . mysqli_error($idcon) . "');
+              </script>";
+    }
 }
-mysql_close($idcon);
+
+// Fermer la connexion
+mysqli_close($idcon);
 ?>

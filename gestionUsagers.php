@@ -14,7 +14,7 @@
     <nav>
         <div class="logo-name">
             <div class="logo-image">
-                <img src="images/logo.jpg" alt="library logo">
+                <img src="logo.jpg" alt="library logo">
             </div>
 
             <span class="logo_name">Bibliothèque ENSAA</span>
@@ -98,30 +98,36 @@
                         <tbody>
                             <!-- Select livres-->
                                 <?php 
-                                $selectSQL = "SELECT * FROM  `usagers`";
-                                $result=@mysql_query($selectSQL,$idcon);
-                                    if($result){
-                                        while($row = mysql_fetch_assoc($result) ) {
-                                            $id = $row['id_personne'] ;
-                                            $Nom = $row['nom'] ;
-                                            $Prenom = $row['prenom'] ;
-                                            $Adresse = $row['addresse'] ;
-                                            $Statut = $row['statut'] ;
-                                            $Email = $row['email'] ;
-                                            echo "<tr>";
-                                            echo "<td>$Nom</td>";
-                                            echo "<td>$Prenom</td>";
-                                            echo "<td>$Adresse</td>";
-                                            echo "<td >$Statut</td>";
-                                            echo "<td >$Email</td>";
-                                            echo "<td style=\"text-align : center ;\">";
-                                            echo " <button class=\"status delivered\"  name=\"Update\" > <a  href=\"modifierClient.php?updateid=$id \"> Modifier</a> </button> " ;   
-                                            echo " <button class=\"status return\"     name=\"Delete\" > <a  href=\"supprimerClient.php?deleteid=$id \"> Supprimer</a> </button> " ;             
-                                            echo "</td>" ;     
-                                            echo " </tr>" ;
-                                        }
+                                // Requête pour sélectionner les usagers
+                                $selectSQL = "SELECT * FROM `usagers`";
+                                $result = mysqli_query($idcon, $selectSQL);
+
+                                if ($result) {
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        $id = $row['id_personne'];
+                                        $Nom = $row['nom'];
+                                        $Prenom = $row['prenom'];
+                                        $Adresse = $row['addresse'];
+                                        $Statut = $row['statut'];
+                                        $Email = $row['email'];
+
+                                        echo "<tr>";
+                                        echo "<td>$Nom</td>";
+                                        echo "<td>$Prenom</td>";
+                                        echo "<td>$Adresse</td>";
+                                        echo "<td>$Statut</td>";
+                                        echo "<td>$Email</td>";
+                                        echo "<td style=\"text-align: center;\">";
+                                        echo "<button class=\"status delivered\" name=\"Update\"><a href=\"modifierClient.php?updateid=$id\">Modifier</a></button>";
+                                        echo "<button class=\"status return\" name=\"Delete\"><a href=\"supprimerClient.php?deleteid=$id\">Supprimer</a></button>";
+                                        echo "</td>";
+                                        echo "</tr>";
                                     }
-                                mysql_close($idcon);
+                                }
+
+                                // Fermer la connexion à la base de données
+                                mysqli_close($idcon);
+
                                 ?>
                             <!-- end of select-->
                         </tbody>

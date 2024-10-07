@@ -14,7 +14,7 @@
     <nav>
         <div class="logo-name">
             <div class="logo-image">
-                <img src="images/logo.jpg" alt="library logo">
+                <img src="logo.jpg" alt="library logo">
             </div>
 
             <span class="logo_name">Bibliothèque ENSAA</span>
@@ -94,40 +94,46 @@
                         <tbody>
                             <!-- Select livres-->
                             <?php 
+                                // Requête pour sélectionner les emprunts
                                 $selectSQL = "SELECT * FROM `emprunts`";
-                                $resultOuter = mysql_query($selectSQL, $idcon);
+                                $resultOuter = mysqli_query($idcon, $selectSQL);
+
                                 if ($resultOuter) {
-                                    while ($row = mysql_fetch_assoc($resultOuter)) {
+                                    while ($row = mysqli_fetch_assoc($resultOuter)) {
                                         $Numero_emprunt = $row['id'];
                                         
                                         // Fetching client
                                         $Numero_usager = $row['id_personne'];
                                         $selectUsagerSQL = "SELECT nom, prenom FROM `usagers` WHERE id_personne = $Numero_usager";
-                                        $resultInner = mysql_query($selectUsagerSQL, $idcon);
-                                        $usager = mysql_fetch_assoc($resultInner);
+                                        $resultInner = mysqli_query($idcon, $selectUsagerSQL);
+                                        $usager = mysqli_fetch_assoc($resultInner);
                                         $Nom_usager = $usager['nom'];
                                         $Prenom_usager = $usager['prenom'];
 
                                         // Fetching livre
                                         $Numero_livre = $row['id_livre'];
                                         $selectLivreSQL = "SELECT titre FROM `livres` WHERE id_livre = $Numero_livre";
-                                        $resultInner = mysql_query($selectLivreSQL, $idcon);
-                                        $livre = mysql_fetch_assoc($resultInner);
+                                        $resultInner = mysqli_query($idcon, $selectLivreSQL);
+                                        $livre = mysqli_fetch_assoc($resultInner);
                                         $Titre_livre = $livre['titre'];
 
                                         $DateEmprunt = $row['date_emprunt'];
 
+                                        // Affichage des informations
                                         echo "<tr>";
                                         echo "<td>" . $Prenom_usager . ' ' . $Nom_usager . "</td>";
                                         echo "<td style=\"text-align: center;\">$Titre_livre</td>";
                                         echo "<td>$DateEmprunt</td>";
                                         echo "<td style=\"text-align: center;\">";
-                                        echo " <button class=\"status return\"  name=\"Delete\" > <a  href=\"supprimerEmprunt.php?deleteid=$Numero_emprunt \">Supprimer</a> </button> " ;           
+                                        echo "<button class=\"status return\" name=\"Delete\"><a href=\"supprimerEmprunt.php?deleteid=$Numero_emprunt\">Supprimer</a></button>";
                                         echo "</td>";
                                         echo "</tr>";
                                     }
                                 }
-                                ?>
+
+                                // Fermer la connexion
+                                mysqli_close($idcon);
+                            ?>
                             <!-- end of select-->
                         </tbody>
                     </table>

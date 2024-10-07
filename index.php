@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php  include "connect.php" ; ?>
+    <?php include "connect.php"; ?>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
@@ -14,7 +14,7 @@
     <nav>
         <div class="logo-name">
             <div class="logo-image">
-                <img src="images/logo.jpg" alt="library logo">
+                <img src="logo.jpg" alt="library logo">
             </div>
 
             <span class="logo_name">Bibliothèque ENSAA</span>
@@ -77,10 +77,10 @@
                         <span class="number">
                             <?php
                             $selectSQL = "SELECT COUNT(*) as count FROM `livres`";
-                                $result=@mysql_query($selectSQL,$idcon);
-                                $row = mysql_fetch_assoc($result);
-                                $livres = $row['count'];
-                                echo "$livres" ;
+                            $result = mysqli_query($idcon, $selectSQL);
+                            $row = mysqli_fetch_assoc($result);
+                            $livres = $row['count'];
+                            echo "$livres";
                             ?>
                         </span>
                     </div>
@@ -90,10 +90,10 @@
                         <span class="number">
                             <?php
                             $selectSQL = "SELECT COUNT(*) as count FROM `usagers`";
-                            $result=@mysql_query($selectSQL,$idcon);
-                            $row = mysql_fetch_assoc($result);
+                            $result = mysqli_query($idcon, $selectSQL);
+                            $row = mysqli_fetch_assoc($result);
                             $usagers = $row['count'];
-                            echo "$usagers" ;
+                            echo "$usagers";
                             ?>
                         </span>
                     </div>
@@ -103,10 +103,10 @@
                         <span class="number">
                             <?php
                             $selectSQL = "SELECT COUNT(*) as count FROM `emprunts`";
-                            $result=@mysql_query($selectSQL,$idcon);
-                            $row = mysql_fetch_assoc($result);
+                            $result = mysqli_query($idcon, $selectSQL);
+                            $row = mysqli_fetch_assoc($result);
                             $emprunt = $row['count'];
-                            echo "$emprunt" ;
+                            echo "$emprunt";
                             ?>
                         </span>
                     </div>

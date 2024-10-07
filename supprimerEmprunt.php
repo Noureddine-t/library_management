@@ -1,17 +1,36 @@
 <?php
-include 'connect.php' ;
-if(isset($_GET['deleteid'])) {
-    $Numero_emprunt = $_GET['deleteid'] ;
-    $deleteSQL = "DELETE FROM `emprunts` WHERE id=$Numero_emprunt " ;
-    $result=@mysql_query($deleteSQL,$idcon);
+include 'connect.php';
 
-    if($result){
-      echo "<script type=\"text/javascript\"> alert('Livre suppprimer avec succces'); 
-      window.location.href = \"gestionEmprunts.php\";
-             </script>";
-    }else {
-      echo "<script type=\"text/javascript\"> alert('Erreur : ".mysql_error()."')</script>";
+if (isset($_GET['deleteid'])) {
+    // Sanitize input
+    $Numero_emprunt = intval($_GET['deleteid']);
+
+    // Prepare the delete statement
+    $deleteSQL = "DELETE FROM `emprunts` WHERE id = ?";
+    
+    // Initialize the statement
+    $stmt = mysqli_prepare($idcon, $deleteSQL);
+
+    if ($stmt) {
+        // Bind the parameter
+        mysqli_stmt_bind_param($stmt, "i", $Numero_emprunt);
+
+        // Execute the statement
+        if (mysqli_stmt_execute($stmt)) {
+            echo "<script type=\"text/javascript\"> alert('Emprunt supprimé avec succès'); 
+            window.location.href = \"gestionEmprunts.php\";
+            </script>";
+        } else {
+            echo "<script type=\"text/javascript\"> alert('Erreur : " . mysqli_error($idcon) . "')</script>";
+        }
+
+        // Close the statement
+        mysqli_stmt_close($stmt);
+    } else {
+        echo "<script type=\"text/javascript\"> alert('Erreur de préparation de la requête.')</script>";
     }
-
 }
+
+// Close the connection
+mysqli_close($idcon);
 ?>

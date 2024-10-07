@@ -1,14 +1,13 @@
 <?php
-define("MYHOST","localhost"); 
-define("MYUSER","root"); 
-define("MYPASS","");
-$base="bibliotheque";
-$idcon=@mysql_connect(MYHOST,MYUSER,MYPASS);
-$idbase=@mysql_select_db($base);
+define("MYHOST", "sql301.infinityfree.com"); 
+define("MYUSER", "if0_37458191"); 
+define("MYPASS", "gnJ64i7tozL3k4i");
+$base = "if0_37458191_library_DB";
 
-    if (!$idcon) {
-    echo "Erreur de connexion à la base de données.";
-    exit();
-    }
+$idcon = new mysqli(MYHOST, MYUSER, MYPASS, $base);
 
-    ?>
+if ($idcon->connect_error) { 
+    die("Erreur de connexion à la base de données : " . $idcon->connect_error);
+}
+mysqli_set_charset($idcon, 'utf8mb4');
+?>

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
@@ -14,7 +13,7 @@
     <nav>
         <div class="logo-name">
             <div class="logo-image">
-                <img src="images/logo.jpg" alt="library logo">
+                <img src="logo.jpg" alt="library logo">
             </div>
 
             <span class="logo_name">Bibliothèque ENSAA</span>
@@ -38,11 +37,9 @@
                     <i class="uil uil-share"></i>
                     <span class="link-name">Gestion des emprunts</span>
                 </a></li>
-                
             </ul>
             
             <ul class="logout-mode">
-
                 <li class="mode">
                     <a href="#">
                         <i class="uil uil-moon"></i>
@@ -63,103 +60,103 @@
 
              <div class="search-box">
                     <i class="uil uil-search"></i>
-                  <input type="text" name="search_filter" class="input"  id="filterInput" placeholder="chercher livre ...">
+                  <input type="text" name="search_filter" class="input" id="filterInput" placeholder="chercher livre ...">
              </div>
             
         </div>
         <div class="dash-content">
-        <div class="activity">
+            <div class="activity">
                 <div class="title">
                     <i class="uil uil-clock-three"></i>
                     <span class="text">Liste des livres</span>
                 </div>
         
-        <div class="details">
-            <div class="recentOrders">
-                <div class="cardHeader">
-                    <div class='ajout'>
-                    <a href="ajouterlivre.php" class="btn">Ajouter un livre</a>
-                    </div>
-                </div>
-                <table id="myTable">
-                    <thead>
-                        <tr>
-                            <td>Titre</td>
-                            <td>Auteur</td>
-                            <td>Maison</td>
-                            <td>Exemp</td>
-                            <td>Page</td>
-                            <td style="text-align:center;">Statut</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Select livres-->
-                            <?php 
-                            define("MYHOST","localhost"); 
-                            define("MYUSER","root"); 
-                            define("MYPASS","");
-                            $base="bibliotheque";
-                            $idcon=@mysql_connect(MYHOST,MYUSER,MYPASS);
-                            $idbase=@mysql_select_db($base);
-                            $selectSQL = "SELECT * FROM  `livres`";
-                            $result=@mysql_query($selectSQL,$idcon);
-                                if($result){
-                                    while($row = mysql_fetch_assoc($result) ) {
-                                        $id = $row['id_livre'] ;
-                                        $Titre = $row['titre'] ;
-                                        $Auteur = $row['auteurs'] ;
-                                        $Maison = $row['maison_d_edition'] ;
-                                        $Pages = $row['nombre_de_pages'] ;
-                                        $Exemplaire = $row['nombre_de_copies'] ;
+                <div class="details">
+                    <div class="recentOrders">
+                        <div class="cardHeader">
+                            <div class='ajout'>
+                                <a href="ajouterlivre.php" class="btn">Ajouter un livre</a>
+                            </div>
+                        </div>
+                        <table id="myTable">
+                            <thead>
+                                <tr>
+                                    <td>Titre</td>
+                                    <td>Auteur</td>
+                                    <td>Maison</td>
+                                    <td>Exemp</td>
+                                    <td>Page</td>
+                                    <td style="text-align:center;">Statut</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Select livres-->
+                                <?php
+                                include "connect.php";
+
+                                // Requête pour sélectionner les livres
+                                $selectSQL = "SELECT * FROM `livres`";
+                                $result = mysqli_query($idcon, $selectSQL);
+
+                                if ($result) {
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        $id = $row['id_livre'];
+                                        $Titre = $row['titre'];
+                                        $Auteur = $row['auteurs'];
+                                        $Maison = $row['maison_d_edition'];
+                                        $Pages = $row['nombre_de_pages'];
+                                        $Exemplaire = $row['nombre_de_copies'];
+
                                         echo "<tr>";
                                         echo "<td>$Titre</td>";
                                         echo "<td>$Auteur</td>";
                                         echo "<td>$Maison</td>";
-                                        echo "<td >$Exemplaire</td>";
-                                        echo "<td >$Pages</td>";
+                                        echo "<td>$Exemplaire</td>";
+                                        echo "<td>$Pages</td>";
                                         echo "<td>";
-                                        echo " <button class=\"status delivered\"  name=\"Update\" > <a  href=\"modifierLivre.php?updateid=$id \"> Modifier</a> </button> " ;   
-                                        echo " <button class=\"status return\"     name=\"Delete\" > <a  href=\"supprimerLivre.php?deleteid=$id \"> Supprimer</a> </button> " ;             
-                                        echo "</td>" ;     
-                                        echo " </tr>" ;
+                                        echo "<button class=\"status delivered\" name=\"Update\"><a href=\"modifierLivre.php?updateid=$id\">Modifier</a></button>";
+                                        echo "<button class=\"status return\" name=\"Delete\"><a href=\"supprimerLivre.php?deleteid=$id\">Supprimer</a></button>";
+                                        echo "</td>";
+                                        echo "</tr>";
                                     }
+                                } else {
+                                    echo "Aucun livre trouvé.";
                                 }
 
-                            ?>
-                        <!-- end of select-->
-                    </tbody>
-                </table>
+                                // Fermer la connexion
+                                mysqli_close($idcon);
+                                ?>
+                                <!-- end of select-->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-
-            </div>
+        </div>
     </section>
-
-
-
-
 
     <script>
         // Search Input :
         document.getElementById("filterInput").addEventListener("input", function() {
-        var filter = this.value.toUpperCase();
-        var table = document.getElementById("myTable");
-        var rows = table.getElementsByTagName("tr");
-        for (var i = 0; i < rows.length; i++) {
-            var cells = rows[i].getElementsByTagName("td");
-            var isVisible = false;
+            var filter = this.value.toUpperCase();
+            var table = document.getElementById("myTable");
+            var rows = table.getElementsByTagName("tr");
+            for (var i = 0; i < rows.length; i++) {
+                var cells = rows[i].getElementsByTagName("td");
+                var isVisible = false;
 
-            for (var j = 0; j < cells.length; j++) {
-            var cell = cells[j];
-            if (cell) {
-                var cellText = cell.textContent || cell.innerText;
-                if (cellText.toUpperCase().indexOf(filter) > -1) {
-                isVisible = true;
-                break;
+                for (var j = 0; j < cells.length; j++) {
+                    var cell = cells[j];
+                    if (cell) {
+                        var cellText = cell.textContent || cell.innerText;
+                        if (cellText.toUpperCase().indexOf(filter) > -1) {
+                            isVisible = true;
+                            break;
+                        }
+                    }
                 }
+                rows[i].style.display = isVisible ? "" : "none";
             }
-            }
-            rows[i].style.display = isVisible ? "" : "none";
-        }
         });
     </script>
 
