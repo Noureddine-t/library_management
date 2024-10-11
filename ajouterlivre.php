@@ -11,21 +11,21 @@
     <title>Ajouter un livre</title>
 </head>
 <body>
-    <section>
-        <form id="consultation-form" class="feed-form" method="POST">
-            <input name="titre" placeholder="Nom" type="text" required>
-            <input name="auteur" placeholder="Auteur" type="text" required>
-            <input name="maison" placeholder="Maison d'édition" type="text" required>
-            <input name="nbrExp" placeholder="Nombre d'exemplaires" type="number" required>
-            <input name="nbrPage" placeholder="Nombre de Pages" type="number" required>
-            <button type="submit" name="Ajouter">Ajouter</button>
-        </form>
-    </section>
+<section>
+    <form id="consultation-form" class="feed-form" method="POST">
+        <input name="titre" placeholder="Nom" type="text" required>
+        <input name="auteur" placeholder="Auteur" type="text" required>
+        <input name="maison" placeholder="Maison d'édition" type="text" required>
+        <input name="nbrExp" placeholder="Nombre d'exemplaires" type="number" required>
+        <input name="nbrPage" placeholder="Nombre de Pages" type="number" required>
+        <button type="submit" name="Ajouter">Ajouter</button>
+    </form>
+</section>
 </body>
 </html>
 
-<?php 
-if(isset($_POST['Ajouter'])) {
+<?php
+if (isset($_POST['Ajouter'])) {
     // Récupérer les données du formulaire
     $Titre = mysqli_real_escape_string($idcon, $_POST['titre']);
     $Auteur = mysqli_real_escape_string($idcon, $_POST['auteur']);

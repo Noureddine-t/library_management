@@ -4,37 +4,37 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
+
     <?php include 'connect.php'; ?>
-  
+
     <style><?php include 'style.css'; ?></style>
     <title>Ajouter un usager</title>
 </head>
 <body>
 <section class="section_form">
-  <form id="consultation-form" class="feed-form" method="POST">
-    <input name="nom" placeholder="Nom" type="text" required>
-    <input name="prenom" placeholder="Prénom" type="text" required>
-    <input name="adresse" placeholder="Adresse" type="text" required>
-    <input name="email" placeholder="Email" type="email" required>
-    <div>
+    <form id="consultation-form" class="feed-form" method="POST">
+        <input name="nom" placeholder="Nom" type="text" required>
+        <input name="prenom" placeholder="Prénom" type="text" required>
+        <input name="adresse" placeholder="Adresse" type="text" required>
+        <input name="email" placeholder="Email" type="email" required>
         <div>
-            <label><input type="radio" name="statut" value="Etudiant" checked>
-            <span>Étudiant</span>
-            </label>
-            <label><input type="radio" name="statut" value="Enseignant">
-            <span>Enseignant</span>
-            </label>
+            <div>
+                <label><input type="radio" name="statut" value="Etudiant" checked>
+                    <span>Étudiant</span>
+                </label>
+                <label><input type="radio" name="statut" value="Enseignant">
+                    <span>Enseignant</span>
+                </label>
+            </div>
         </div>
-    </div>
-    <button type="submit" name="Ajouter">Ajouter</button>
-  </form>
+        <button type="submit" name="Ajouter">Ajouter</button>
+    </form>
 </section>
 </body>
 </html>
 
-<?php 
-if(isset($_POST['Ajouter'])) {
+<?php
+if (isset($_POST['Ajouter'])) {
     // Sécuriser les données utilisateur
     $Nom = mysqli_real_escape_string($idcon, $_POST['nom']);
     $Prenom = mysqli_real_escape_string($idcon, $_POST['prenom']);
@@ -45,7 +45,7 @@ if(isset($_POST['Ajouter'])) {
     // Requête d'insertion
     $insertSQL = "INSERT INTO `usagers` (`nom`, `prenom`, `addresse`, `statut`, `email`) 
                   VALUES ('$Nom', '$Prenom', '$Adresse', '$Statut', '$Email')";
-    
+
     // Exécuter la requête
     if (mysqli_query($idcon, $insertSQL)) {
         echo "<script type=\"text/javascript\"> 

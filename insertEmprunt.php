@@ -9,46 +9,47 @@
     <title>Ajouter une emprunte</title>
 </head>
 <body>
-    <section class="section_form">
-        <form method="POST" id="loan-form" class="feed-form">
-            <label for="usager"><h3>Usager:</h3></label>
-            <select name="Numero_usager" id="usager" class="box" required>
-                <?php
-                // Fetch usager data from the database
-                $usagerQuery = "SELECT * FROM usagers";
-                $usagerResult = mysqli_query($idcon, $usagerQuery);
-                while ($usager = mysqli_fetch_assoc($usagerResult)) {
-                    echo "<option value='" . $usager['id_personne'] . "'>" . $usager['nom'] . " " . $usager['prenom'] . "</option>";
-                }
-                ?>
-            </select>
-            <br><br>
+<section class="section_form">
+    <form method="POST" id="loan-form" class="feed-form">
+        <label for="usager"><h3>Usager:</h3></label>
+        <select name="Numero_usager" id="usager" class="box" required>
+            <?php
+            // Fetch usager data from the database
+            $usagerQuery = "SELECT * FROM usagers";
+            $usagerResult = mysqli_query($idcon, $usagerQuery);
+            while ($usager = mysqli_fetch_assoc($usagerResult)) {
+                echo "<option value='" . $usager['id_personne'] . "'>" . $usager['nom'] . " " . $usager['prenom'] . "</option>";
+            }
+            ?>
+        </select>
+        <br><br>
 
-            <label for="livre"><h3>Livres:</h3></label>
-            <select name="Numero_livre" id="livre" class="box" required>
-                <?php
-                // Fetch livre data from the database
-                $livreQuery = "SELECT * FROM livres WHERE nombre_de_copies >= 1";
-                $livreResult = mysqli_query($idcon, $livreQuery);
-                while ($livre = mysqli_fetch_assoc($livreResult)) {
-                    echo "<option value='" . $livre['id_livre'] . "'>" . $livre['titre'] . " by " . $livre['auteurs'] . "</option>";
-                }
-                ?>
-            </select>
-            <br><br>
-            <input type="button" value="Ajouter livre" onclick="addLivre()">
-            <ul id="selected-livres">
+        <label for="livre"><h3>Livres:</h3></label>
+        <select name="Numero_livre" id="livre" class="box" required>
+            <?php
+            // Fetch livre data from the database
+            $livreQuery = "SELECT * FROM livres WHERE nombre_de_copies >= 1";
+            $livreResult = mysqli_query($idcon, $livreQuery);
+            while ($livre = mysqli_fetch_assoc($livreResult)) {
+                echo "<option value='" . $livre['id_livre'] . "'>" . $livre['titre'] . " by " . $livre['auteurs'] . "</option>";
+            }
+            ?>
+        </select>
+        <br><br>
+        <input type="button" value="Ajouter livre" onclick="addLivre()">
+        <ul id="selected-livres">
             <h2>Liste des livres choisis :</h2>
-            </ul> 
-            <br><br>
-            
-            <input type="hidden" name="selected_livres" id="selected-livres-input" value="">
-            <button type="button" class="button_submit" onclick="submitForm()">Ajouter une emprunte</button>
-        </form>
-    </section>
+        </ul>
+        <br><br>
+
+        <input type="hidden" name="selected_livres" id="selected-livres-input" value="">
+        <button type="button" class="button_submit" onclick="submitForm()">Ajouter une emprunte</button>
+    </form>
+</section>
 
 <script type="text/javascript">
     const selectedLivres = [];
+
     function addLivre() {
         const livreSelect = document.getElementById("livre");
         const selectedLivreId = livreSelect.value;

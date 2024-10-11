@@ -6,7 +6,7 @@ if (isset($_GET['deleteid'])) {
 
     // Prepare the delete statement
     $deleteSQL = "DELETE FROM `usagers` WHERE id_personne = ?";
-    
+
     // Initialize the statement
     $stmt = mysqli_prepare($idcon, $deleteSQL);
 
