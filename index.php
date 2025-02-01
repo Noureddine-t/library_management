@@ -25,7 +25,7 @@
         <ul class="nav-links">
             <li><a href="index.php">
                     <i class="uil uil-estate"></i>
-                    <span class="link-name">Principale</span>
+                    <span class="link-name">Accueil</span>
                 </a></li>
             <li><a href="gestionLivres.php">
                     <i class="uil uil-files-landscapes"></i>
